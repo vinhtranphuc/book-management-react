@@ -7,6 +7,7 @@ import DashboardtLayout from "./components/dashboard_layout";
 // Route Views
 import ComponentsOverview from "./components/pages/components-overview/ComponentsOverview";
 import BookManagement from "./components/pages/book-management/BookManagement";
+import AuthorManagement from "./components/pages/author-management/AuthorManagement";
 
 import PublicLayout from "./components/public_layout";
 import EmptyLayout from "./components/empty_layout";
@@ -38,6 +39,11 @@ export default [
     path: "/book-management",
     layout: DashboardtLayout,
     component: BookManagement
+  },
+  {
+    path: "/author-management",
+    layout: DashboardtLayout,
+    component: AuthorManagement
   },
   {
     path: "/components-overview",

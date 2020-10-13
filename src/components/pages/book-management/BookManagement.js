@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Card, CardHeader, CardBody, FormInput,Button } from "shards-react";
+import { Select } from 'antd';
 
 import PageTitle from "../../fragements/PageTitle";
 import AuthorsFilter from "./AuthorsFilter";
@@ -11,6 +12,8 @@ import { bindActionCreators } from "redux";
 import { getBooks } from '../../../actions/booksAction';
 import BookModal from "./BookModal";
 
+const { Option } = Select;
+
 class BookManagement extends React.Component {
 
   constructor(props) {
@@ -18,7 +21,7 @@ class BookManagement extends React.Component {
     this.state = {
       bookPrm : {
         page: '',
-        records_no: 2,
+        records_no: 10,
         title:'',
         created_at: '',
         author_id:'',
@@ -87,6 +90,16 @@ class BookManagement extends React.Component {
     })
   }
 
+  handleChangeListSize(value) {
+    let {bookPrm} = this.state;
+    bookPrm.records_no = !value?10:value;
+    this.props.getBooks(bookPrm);
+    this.setState({
+      bookPrm:bookPrm,
+      modalVisible: false
+    })
+  }
+
   render() {
     return (<Container fluid className="main-content-container px-4">
       {/* Page Header */}
@@ -120,6 +133,15 @@ class BookManagement extends React.Component {
                 <Col md="1" className="form-group">
                   <strong className="text-muted d-block mb-2">Authors</strong>
                   <AuthorsFilter handleFilterAuthors={this.handleFilterAuthors.bind(this)}></AuthorsFilter>
+                </Col>
+              </Row>
+              <Row>
+                <Col md="2" >
+                  <Select defaultValue="10" style={{ width: 120 }} allowClear onChange={this.handleChangeListSize.bind(this)}>
+                    <Option value="10">10</Option>
+                    <Option value="20">20</Option>
+                    <Option value="50">50</Option>
+                  </Select>
                 </Col>
               </Row>
             </CardHeader>

@@ -13,7 +13,10 @@
  * Copyright 2017-* DesignRevision (https://designrevision.com)
  * Copyright 2017-* Catalin Vasile (http://catalin.me)
  */
-
+.ant-upload-select.ant-upload-select-picture-card {
+  width: unset !important;
+  min-width: 104px !important;
+}
 :root {
   --blue: #007bff;
   --indigo: #674eec;

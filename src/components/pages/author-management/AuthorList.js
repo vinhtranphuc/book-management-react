@@ -6,13 +6,12 @@ import {
   Col
 } from "shards-react";
 import { Popconfirm,notification } from 'antd';
-import { Modal } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getBooks,deleteBook } from '../../../actions/booksAction';
+import { getPageAuthors,deleteAuthor } from '../../../actions/authorsAction';
 
-class BookList extends Component {
+class AuthorList extends Component {
 
   constructor(props) {
     super(props);
@@ -20,9 +19,9 @@ class BookList extends Component {
   }
 
   handleLoadPage(page) {
-    const {bookPrm} = this.props;
-    bookPrm.page = page;
-    this.props.getBooks(bookPrm);
+    const {authorPrm} = this.props;
+    authorPrm.page = page;
+    this.props.getPageAuthors(authorPrm);
   }
  
   handleChangePage = page => {
@@ -34,41 +33,27 @@ class BookList extends Component {
         <span className="more-text">...</span>
     </Popover>;
   }
-  handleShowText = (text,maxSize, key) => {
-    return text.length>maxSize?<span>{[text.substring(0,maxSize-3),this.more(text,key)]}</span>:text;
-  }
+  
   handleLoadData = (list,page_of_list) => {
     const records = [];
-    const {records_no} = this.props.bookPrm;
+    const {records_no} = this.props.authorPrm;
     let startIndex = records_no*(page_of_list-1)+1;
     {list&&list.map((e,i) => {
-      let bookId = e.book_id;
-      let title = this.handleShowText(e.title,15,i);
-      let authors = this.handleShowText(e.authors.map(e => ' '+e.full_name).toString(),30,i);
-      let description = this.handleShowText(e.description,30,i);
-      let createUser = this.handleShowText(e.create_user,30,i);
-      let createAt = this.handleShowText(e.created_at,20,i);
-      let updateAt = this.handleShowText(e.updated_at,20,i);
-      let status = this.handleShowText(e.status,20,i);
-      let image = this.handleShowText(e.image,20,i);
+      let authorId = e.author_id;
+      let fullName = e.full_name;
+      let description = e.description;
       records.push(
-        <tr key={bookId}>
+        <tr key={authorId}>
           <th scope="row">{startIndex++}</th>
-          <td>{title}</td>
-          <td>{authors}</td>
+          <td>{fullName}</td>
           <td>{description}</td>
-          <td>{createUser}</td>
-          <td>{createAt}</td>
-          <td>{updateAt}</td>
-          <td>{status}</td>
-          <td>{image}</td>
           <td className="posts-action">
             <Space size="middle">
-              <EditOutlined onClick={() => this.handleEdit(bookId)}/>
+              <EditOutlined onClick={() => this.handleEdit(authorId)}/>
               <Popconfirm
                   placement="left"
-                  title={"Are you sure to delete this book?"}
-                  onConfirm={() => this.handleDelete(bookId)}
+                  title={"Are you sure to delete this author?"}
+                  onConfirm={() => this.handleDelete(authorId)}
                   okText="Yes"
                   cancelText="No"
                 >
@@ -82,8 +67,8 @@ class BookList extends Component {
     return records;
   }
 
-  handleEdit = (bookId) => {
-    this.props.handleEditBook(bookId);
+  handleEdit = (authorId) => {
+    this.props.handleEditAuthor(authorId);
   }
 
   handleDelete = (postId) => {
@@ -91,19 +76,19 @@ class BookList extends Component {
     this.props.deletePost(param).then((result) => {
       this.handleLoadPage(1);
       notification.success({
-        message: 'Book Management',
+        message: 'Author Management',
         description: result.data.message
       });
     }).catch(function (error) {
       notification.warning({
-        message: 'Book Management',
+        message: 'Author Management',
         description: error.response.data.message
       }); 
     });
   }
   render() {
-    const {list,page_of_list,total_records} = this.props.books;
-    const {records_no} = this.props.bookPrm;
+    const {list,page_of_list,total_records} = this.props.pageAuthors;
+    const {records_no} = this.props.authorPrm;
     return (
       <>
         <Row>
@@ -113,14 +98,8 @@ class BookList extends Component {
                 <thead className="bg-light">
                   <tr>
                     <th scope="col" className="border-0">#</th>
-                    <th scope="col" className="border-0">Title</th>
-                    <th scope="col" className="border-0">Authors</th>
+                    <th scope="col" className="border-0">Full Name</th>
                     <th scope="col" className="border-0">Description</th>
-                    <th scope="col" className="border-0">Create User</th>
-                    <th scope="col" className="border-0">Create At</th>
-                    <th scope="col" className="border-0">Update At</th>
-                    <th scope="col" className="border-0">Status</th>
-                    <th scope="col" className="border-0">Image</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -138,11 +117,11 @@ class BookList extends Component {
 
 const mapSateToProps = (state) => {
   return {
-    books: state.books
+    pageAuthors: state.pageAuthors
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getBooks: getBooks,deleteBook:deleteBook }, dispatch);
+  return bindActionCreators({ getPageAuthors: getPageAuthors,deleteAuthor:deleteAuthor }, dispatch);
 }
 
-export default connect(mapSateToProps, mapDispatchToProps)(BookList);
+export default connect(mapSateToProps, mapDispatchToProps)(AuthorList);

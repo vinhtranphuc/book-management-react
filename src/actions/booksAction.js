@@ -24,7 +24,7 @@ export const getBooks = (params = {
 
 export const editBook = (bookPrm) => {
     return async () => {
-        return await axios.post('blog/edit-book', bookPrm, requestConfig()).then(result => {
+        return await axios.post('book/edit-book', bookPrm, requestConfig()).then(result => {
             return result;
         });
     };
@@ -34,7 +34,7 @@ export const deleteBook = (params = {
     book_id: ''
 }) => {
     return async (dispatch) => {
-        const result = await axios.delete('blog/delete-book?bookId=' + params.book_id, requestConfig());
+        const result = await axios.delete('book/delete-book?bookId=' + params.book_id, requestConfig());
         return result;
     };
 };

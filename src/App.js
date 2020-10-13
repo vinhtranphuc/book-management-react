@@ -11,7 +11,7 @@ import {getCurrentUser} from "./actions/userAction";
 import {isEnableAccess } from './utils/TokenUtils';
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./assets/lifecode.css";
+import "./assets/book.css";
 
 export const history = createBrowserHistory(); 
 class App extends Component {
