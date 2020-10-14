@@ -5,7 +5,6 @@ import { Redirect, NotFound} from "react-router-dom";
 import DashboardtLayout from "./components/dashboard_layout";
 
 // Route Views
-import ComponentsOverview from "./components/pages/components-overview/ComponentsOverview";
 import BookManagement from "./components/pages/book-management/BookManagement";
 import AuthorManagement from "./components/pages/author-management/AuthorManagement";
 
@@ -37,18 +36,15 @@ export default [
   },
   {
     path: "/book-management",
+    isAuth: false,
     layout: DashboardtLayout,
     component: BookManagement
   },
   {
     path: "/author-management",
+    isAuth: false,
     layout: DashboardtLayout,
     component: AuthorManagement
-  },
-  {
-    path: "/components-overview",
-    layout: DashboardtLayout,
-    component: ComponentsOverview
   },
   {
     path: "/not-found",

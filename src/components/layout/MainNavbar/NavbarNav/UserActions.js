@@ -42,14 +42,14 @@ class UserActions extends React.Component {
           <img
             className="user-avatar rounded-circle mr-2"
             src={currentUser.avatar_uri}
-            alt="User Avatar"
+            alt="User"
           />{" "}
           <span className="d-none d-md-inline-block">{currentUser.name}</span>
         </DropdownToggle>
         <Collapse tag={DropdownMenu} right small open={this.state.visible}>
-          <DropdownItem tag={Link} to="user-profile">
+          {/* <DropdownItem tag={Link} to="user-profile">
             <i className="material-icons">&#xE7FD;</i> Profile
-          </DropdownItem>
+          </DropdownItem> */}
           <DropdownItem divider />
           <DropdownItem tag={Link} to="/logout" className="text-danger">
             <i className="material-icons text-danger">&#xE879;</i> Logout

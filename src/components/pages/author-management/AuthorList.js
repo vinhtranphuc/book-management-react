@@ -49,7 +49,7 @@ class AuthorList extends Component {
           <td>{description}</td>
           <td className="posts-action">
             <Space size="middle">
-              <EditOutlined onClick={() => this.handleEdit(authorId)}/>
+              <EditOutlined onClick={() => this.handleEdit(e)}/>
               <Popconfirm
                   placement="left"
                   title={"Are you sure to delete this author?"}
@@ -67,23 +67,31 @@ class AuthorList extends Component {
     return records;
   }
 
-  handleEdit = (authorId) => {
-    this.props.handleEditAuthor(authorId);
+  handleEdit = (author) => {
+    this.props.handleEditAuthor(author);
   }
 
-  handleDelete = (postId) => {
-    const param = {post_id:postId};
-    this.props.deletePost(param).then((result) => {
+  handleDelete = (authorId) => {
+    const param = {author_id:authorId};
+    this.props.deleteAuthor(param).then((result) => {
       this.handleLoadPage(1);
       notification.success({
         message: 'Author Management',
         description: result.data.message
       });
+      window.location.reload(false);
     }).catch(function (error) {
-      notification.warning({
-        message: 'Author Management',
-        description: error.response.data.message
-      }); 
+      if(error.response.status == 401 || error.response.status == 403) {
+        notification.warning({
+            message: 'Book Management',
+            description: 'You have not permission to access, please login with admin to use !'
+        })
+      } else {
+        notification.warning({
+            message: 'Book Management',
+            description: 'An eror orrcured'
+        })
+      }
     });
   }
   render() {

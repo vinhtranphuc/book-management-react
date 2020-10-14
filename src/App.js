@@ -47,7 +47,7 @@ class App extends Component {
                 exact={route.exact}
                 component={withTracker(props => {
                   return (
-                    <route.layout {...props}>
+                    <route.layout {...props} isAuth={route.isAuth?route.isAuth:true}>
                       <route.component {...props} />
                     </route.layout>
                   );

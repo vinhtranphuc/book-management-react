@@ -7,7 +7,8 @@ import AuthorList from "./AuthorList";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getPageAuthors } from '../../../actions/authorsAction';
-import AuthorModal from "./AuthorModal";
+import CreateAuthorModal from "./CreateAuthorModal";
+import EditAuthorModal from "./EditAuthorModal";
 
 class AuthorManagement extends React.Component {
 
@@ -25,7 +26,8 @@ class AuthorManagement extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      modalVisible: false
+      createModalVisible: false,
+      editModalVisible: false,
     });
   }
 
@@ -35,8 +37,15 @@ class AuthorManagement extends React.Component {
 
   handleInitList = () => {
     this.setState({
-      modalVisible: false
+      createModalVisible: false,
+      editModalVisible: false
     });
+    const {authorPrm} = this.state;
+    authorPrm.page = 1;
+    this.props.getPageAuthors(authorPrm);
+  }
+
+  handleReload() {
     const {authorPrm} = this.state;
     authorPrm.page = 1;
     this.props.getPageAuthors(authorPrm);
@@ -44,17 +53,17 @@ class AuthorManagement extends React.Component {
 
   handleCreateAuthor() {
     this.setState({
-      modalVisible: true,
-      modalMode:0,
-      authorId:''
+      createModalVisible: true,
+      editModalVisible:false
     });
   }
 
-  handleEditAuthor(authorId) {
+  handleEditAuthor(author) {
     this.setState({
-      modalVisible: true,
+      editModalVisible: true,
+      createModalVisible:false,
       modalMode:1,
-      authorId:authorId
+      author:author
     });
   }
 
@@ -83,8 +92,9 @@ class AuthorManagement extends React.Component {
           </Card>
         </Col>
       </Row>
-      <AuthorModal modalVisible={this.state.modalVisible} mode={this.state.modalMode} authorId={this.state.authorId} handleInitList={this.handleInitList}>
-      </AuthorModal>
+      <CreateAuthorModal handleReload={this.handleReload.bind(this)} modalVisible={this.state.createModalVisible}>
+      </CreateAuthorModal>
+      <EditAuthorModal author={this.state.author} handleReload={this.handleReload.bind(this)} modalVisible={this.state.editModalVisible}></EditAuthorModal>
     </Container>
     );
   }

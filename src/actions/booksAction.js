@@ -22,9 +22,17 @@ export const getBooks = (params = {
     };
 };
 
+export const createBook = (bookPrm) => {
+    return async () => {
+        return await axios.post('book/create-book', bookPrm, requestConfig()).then(result => {
+            return result;
+        });
+    };
+};
+
 export const editBook = (bookPrm) => {
     return async () => {
-        return await axios.post('book/edit-book', bookPrm, requestConfig()).then(result => {
+        return await axios.put('book/edit-book', bookPrm, requestConfig()).then(result => {
             return result;
         });
     };

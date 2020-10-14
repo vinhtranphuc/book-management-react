@@ -9,8 +9,8 @@ import MainFooter from "./layout/MainFooter";
 import { isEnableAccess } from '../utils/TokenUtils';
 import { Redirect } from 'react-router';
 
-const DefaultLayout = ({ children, noNavbar, noFooter }) => {
-  if(isEnableAccess()) {
+const DefaultLayout = ({ children, noNavbar, noFooter, isAuth }) => {
+  // if(isAuth && isEnableAccess()) {
     return (
       <Container fluid>
         <Row>
@@ -29,7 +29,7 @@ const DefaultLayout = ({ children, noNavbar, noFooter }) => {
         </Row>
       </Container>
     );
-  }
+  // }
   return (<Redirect to="/login" />);
 }
 

@@ -10,7 +10,8 @@ import BookList from "./BookList";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getBooks } from '../../../actions/booksAction';
-import BookModal from "./BookModal";
+import CreateBookModal from "./CreateBookModal";
+import EditBookModal from "./EditBookModal";
 
 const { Option } = Select;
 
@@ -25,7 +26,8 @@ class BookManagement extends React.Component {
         title:'',
         created_at: '',
         author_id:'',
-        modalVisible: false,
+        createModalVisible: false,
+        editModalVisible:false,
         modalMode:0,
         bookId:''
       }
@@ -34,7 +36,8 @@ class BookManagement extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      modalVisible: false
+      createModalVisible: false,
+      editModalVisible:false,
     });
   }
 
@@ -44,19 +47,27 @@ class BookManagement extends React.Component {
     this.props.getBooks(bookPrm);
   }
 
+  handleReload() {
+    const {bookPrm} = this.state;
+    bookPrm.page = 1;
+    this.props.getBooks(bookPrm);
+  }
+
   handleCreateBook() {
     this.setState({
-      modalVisible: true,
+      createModalVisible: true,
+      editModalVisible:false,
       modalMode:0,
       bookId:''
     });
   }
 
-  handleEditBook(bookId) {
+  handleEditBook(book) {
     this.setState({
-      modalVisible: true,
+      createModalVisible: false,
+      editModalVisible:true,
       modalMode:1,
-      bookId:bookId
+      book:book
     });
   }
 
@@ -99,7 +110,7 @@ class BookManagement extends React.Component {
       modalVisible: false
     })
   }
-
+  
   render() {
     return (<Container fluid className="main-content-container px-4">
       {/* Page Header */}
@@ -151,8 +162,9 @@ class BookManagement extends React.Component {
           </Card>
         </Col>
       </Row>
-      <BookModal modalVisible={this.state.modalVisible} mode={this.state.modalMode} bookId={this.state.bookId}>
-      </BookModal>
+      <CreateBookModal handleReload={this.handleReload.bind(this)}  modalVisible={this.state.createModalVisible} >
+      </CreateBookModal>
+      <EditBookModal handleReload={this.handleReload.bind(this)} book={this.state.book}  modalVisible={this.state.editModalVisible}></EditBookModal>
     </Container>
     );
   }

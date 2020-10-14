@@ -26,7 +26,7 @@ const _getCurrentUser = (data) => {
 
 export const getCurrentUser=()=>{
     return (dispatch) => {
-        return axios.get('/users/me',requestConfig()).then(result => {
+        return axios.get('/auth/current-user',requestConfig()).then(result => {
             let data = result.data;
             dispatch(_getCurrentUser(data));
         });

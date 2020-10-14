@@ -43,7 +43,7 @@ export const createAuthor = (authorPrm) => {
 
 export const editAuthor = (authorPrm) => {
     return async () => {
-        return await axios.post('author/edit-author', authorPrm, requestConfig()).then(result => {
+        return await axios.put('author/edit-author', authorPrm, requestConfig()).then(result => {
             return result;
         });
     };
@@ -53,7 +53,7 @@ export const deleteAuthor = (params = {
     author_id: ''
 }) => {
     return async (dispatch) => {
-        const result = await axios.delete('book/delete-book?authorId=' + params.author_id, requestConfig());
+        const result = await axios.delete('author/delete-author?authorId=' + params.author_id, requestConfig());
         return result;
     };
 };

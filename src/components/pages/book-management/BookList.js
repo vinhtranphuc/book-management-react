@@ -6,7 +6,7 @@ import {
   Col
 } from "shards-react";
 import { Popconfirm,notification } from 'antd';
-import { Modal } from 'antd';
+import { Button } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -35,7 +35,7 @@ class BookList extends Component {
     </Popover>;
   }
   handleShowText = (text,maxSize, key) => {
-    return text.length>maxSize?<span>{[text.substring(0,maxSize-3),this.more(text,key)]}</span>:text;
+    return (text&&text.length>maxSize)?<span>{[text.substring(0,maxSize-3),this.more(text,key)]}</span>:text;
   }
   handleLoadData = (list,page_of_list) => {
     const records = [];
@@ -50,7 +50,6 @@ class BookList extends Component {
       let createAt = this.handleShowText(e.created_at,20,i);
       let updateAt = this.handleShowText(e.updated_at,20,i);
       let status = this.handleShowText(e.status,20,i);
-      let image = this.handleShowText(e.image,20,i);
       records.push(
         <tr key={bookId}>
           <th scope="row">{startIndex++}</th>
@@ -61,10 +60,9 @@ class BookList extends Component {
           <td>{createAt}</td>
           <td>{updateAt}</td>
           <td>{status}</td>
-          <td>{image}</td>
           <td className="posts-action">
             <Space size="middle">
-              <EditOutlined onClick={() => this.handleEdit(bookId)}/>
+              <EditOutlined onClick={() => this.handleEdit(e)}/>
               <Popconfirm
                   placement="left"
                   title={"Are you sure to delete this book?"}
@@ -82,24 +80,33 @@ class BookList extends Component {
     return records;
   }
 
-  handleEdit = (bookId) => {
-    this.props.handleEditBook(bookId);
+  handleEdit = (book) => {
+    this.props.handleEditBook(book);
   }
 
-  handleDelete = (postId) => {
-    const param = {post_id:postId};
-    this.props.deletePost(param).then((result) => {
+  handleDelete = (bookId) => {
+    const param = {book_id:bookId};
+    this.props.deleteBook(param).then((result) => {
       this.handleLoadPage(1);
       notification.success({
-        message: 'Book Management',
+        message: 'Author Management',
         description: result.data.message
       });
+      window.location.reload(false);
     }).catch(function (error) {
-      notification.warning({
-        message: 'Book Management',
-        description: error.response.data.message
-      }); 
+      if(error.response.status == 401) {
+        notification.warning({
+            message: 'Book Management',
+            description: 'You have not permission to access, please login to use !'
+        })
+      } else {
+        notification.warning({
+            message: 'Book Management',
+            description: 'An eror orrcured'
+        })
+      }
     });
+    
   }
   render() {
     const {list,page_of_list,total_records} = this.props.books;

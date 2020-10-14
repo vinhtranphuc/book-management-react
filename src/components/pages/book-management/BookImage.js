@@ -34,7 +34,7 @@ const onPreview = async file => {
   imgWindow.document.write(image.outerHTML);
 };
 
-class AuthorAvatar extends React.Component {
+class BookImage extends React.Component {
   state = {
     loading: false,
   };
@@ -52,16 +52,14 @@ class AuthorAvatar extends React.Component {
           loading: false,
         }),
       );
-      this.props.handleGetAvatar(info.file.response[0]);
+      this.props.handleGetImg(info.file.response[0]);
     }
   };
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.imageUrl) {
-      this.setState({
-        imageUrl:nextProps.imageUrl
-      })
-    }
+    this.setState({
+      imageUrl:nextProps.imageUrl?nextProps.imageUrl:''
+    })
   }
 
 
@@ -90,4 +88,4 @@ class AuthorAvatar extends React.Component {
   }
 }
 
-export default AuthorAvatar;
+export default BookImage;
