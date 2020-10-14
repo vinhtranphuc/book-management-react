@@ -2,10 +2,11 @@ Book Management
 
 Plugins:
 
- Npm
- ReactJ
- Bootstrap 4
- HTML/CSS
+Npm
+ReactJ
+Bootstrap 4
+HTML/CSS
+
 Install:
 
 1. Clone source
