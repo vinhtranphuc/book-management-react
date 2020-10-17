@@ -77,7 +77,8 @@ class BookManagement extends React.Component {
     this.props.getBooks(bookPrm);
     this.setState({
       bookPrm:bookPrm,
-      modalVisible: false
+      createModalVisible: false,
+      editModalVisible:false,
     })
   }
   handleFilterTitle(e) {
@@ -87,7 +88,8 @@ class BookManagement extends React.Component {
     this.props.getBooks(bookPrm);
     this.setState({
       bookPrm:bookPrm,
-      modalVisible: false
+      createModalVisible: false,
+      editModalVisible:false,
     })
   }
 
@@ -97,7 +99,8 @@ class BookManagement extends React.Component {
     this.props.getBooks(bookPrm);
     this.setState({
       bookPrm:bookPrm,
-      modalVisible: false
+      createModalVisible: false,
+      editModalVisible:false,
     })
   }
 
@@ -107,7 +110,8 @@ class BookManagement extends React.Component {
     this.props.getBooks(bookPrm);
     this.setState({
       bookPrm:bookPrm,
-      modalVisible: false
+      createModalVisible: false,
+      editModalVisible:false,
     })
   }
   
