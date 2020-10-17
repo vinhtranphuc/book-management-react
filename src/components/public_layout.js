@@ -12,7 +12,7 @@ class PublicLayout extends Component {
         <Layout style={{ height: "100%" }}>
           <div style={{
             height: "100%",
-            backgroundImage: "url(" + "http://localhost:8888/api/image/view/common/auth-bg.jpg" + ")",
+            backgroundImage: "url(" + "http://heroku-book-api.herokuapp.com/api/image/view/common/auth-bg.jpg" + ")",
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat'
