@@ -20,7 +20,7 @@ export default [
     path: "/",
     exact: true,
     layout: DashboardtLayout,
-    component: () => <Redirect to="/overview" />
+    component: () => <Redirect to="/book-management" />
   },
   {
     path: "/login",
