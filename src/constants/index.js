@@ -1,4 +1,4 @@
-export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8888/api';
+export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://phucvinh-book-api.herokuapp.com/api';
 export const ACCESS_TOKEN = 'ACCESS_TOKEN';
 export const TIME_SAVE_TOKEN = 'TIME_SAVE_TOKEN';
 
