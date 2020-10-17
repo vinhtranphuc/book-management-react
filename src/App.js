@@ -12,6 +12,7 @@ import {isEnableAccess } from './utils/TokenUtils';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/book.css";
+import "react-app-polyfill/stable";
 
 export const history = createBrowserHistory(); 
 class App extends Component {

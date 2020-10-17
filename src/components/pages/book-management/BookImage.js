@@ -77,7 +77,7 @@ class BookImage extends React.Component {
         listType="picture-card"
         className="avatar-uploader"
         showUploadList={false}
-        action="http://phucvinh-book-api.herokuapp.com/api/image/preview"
+        action="/api/image/preview"
         beforeUpload={beforeUpload}
         onChange={this.handleChange}
         onPreview={onPreview}
