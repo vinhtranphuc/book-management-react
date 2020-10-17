@@ -79,7 +79,7 @@ class AuthorAvatar extends React.Component {
         listType="picture-card"
         className="avatar-uploader"
         showUploadList={false}
-        action="http://heroku-book-api.herokuapp.com/api/image/preview"
+        action="http://phucvinh-book-api.herokuapp.com/api/image/preview"
         beforeUpload={beforeUpload}
         onChange={this.handleChange}
         onPreview={onPreview}
